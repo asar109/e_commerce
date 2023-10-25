@@ -1,6 +1,7 @@
 import 'package:e_commerce/global_variables.dart';
 import 'package:e_commerce/provider/main_screeen_provider.dart';
 import 'package:e_commerce/views/pages/cart_page.dart';
+import 'package:e_commerce/views/pages/fav_page.dart';
 import 'package:e_commerce/views/pages/home_page.dart';
 import 'package:e_commerce/views/pages/profile_page.dart';
 import 'package:e_commerce/views/pages/search_page.dart';
@@ -13,7 +14,7 @@ class MainPage extends StatelessWidget {
   final List<Widget> pageList = const [
     HomePage(),
     SearchPage(),
-    HomePage(),
+    FavouritePage(),
     CartPage(),
     ProfilePage(),
   ];

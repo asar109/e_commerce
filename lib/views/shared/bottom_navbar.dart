@@ -37,8 +37,8 @@ class BottomNavBar extends StatelessWidget {
               ),
               BottomNavWidget(
                 icon: mainScreenProvider.selectedIndex == 2
-                    ? Ionicons.add
-                    : Ionicons.add_outline,
+                    ? Ionicons.heart
+                    : Ionicons.heart_circle_outline,
                 onTap: () => mainScreenProvider.setIndex = 2,
                 size: mainScreenProvider.selectedIndex == 2 ? 28 : 24,
               ),

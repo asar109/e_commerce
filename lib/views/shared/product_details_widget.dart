@@ -1,8 +1,11 @@
 import 'package:e_commerce/global_variables.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dropdown_alert/alert_controller.dart';
+import 'package:flutter_dropdown_alert/model/data_alert.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:hive/hive.dart';
 
-class ProductDetailsWidget extends StatelessWidget {
+class ProductDetailsWidget extends StatefulWidget {
   const ProductDetailsWidget({
     super.key,
     required this.name,
@@ -11,6 +14,8 @@ class ProductDetailsWidget extends StatelessWidget {
     required this.size,
     required this.price,
     required this.color,
+    required this.image,
+    required this.id,
   });
   final String name;
   final int ratings;
@@ -18,6 +23,30 @@ class ProductDetailsWidget extends StatelessWidget {
   final List<dynamic> size;
   final String price;
   final String color;
+  final String image;
+  final String id;
+
+  @override
+  State<ProductDetailsWidget> createState() => _ProductDetailsWidgetState();
+}
+
+class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
+  void _addtoCartController() async {
+    var cartBox = Hive.box('cart_box');
+    await cartBox.add({
+      'name': widget.name,
+      'price': widget.price,
+      'color': widget.color,
+      'size': widget.size,
+      'category': widget.category,
+      'ratings': widget.ratings,
+      'image': widget.image,
+      'id': widget.id,
+    });
+
+    AlertController.show(
+        "Added to Cart", "Item added to cart successfully", TypeAlert.success);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +65,7 @@ class ProductDetailsWidget extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 16, top: 16),
                   child: Text(
-                    name,
+                    widget.name,
                     style: appStyleWithHeight(
                         fw: FontWeight.bold, size: 28, height: 1.2),
                   ),
@@ -49,7 +78,7 @@ class ProductDetailsWidget extends StatelessWidget {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(right: 8),
-                          child: Text(category,
+                          child: Text(widget.category,
                               style: appStyleWithHeight(
                                   fw: FontWeight.bold,
                                   size: 16,
@@ -80,7 +109,7 @@ class ProductDetailsWidget extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(right: 4),
                           child: Text(
-                            '\$$price ',
+                            '\$${widget.price} ',
                             style: appStyleWithHeight(
                                 fw: FontWeight.bold, size: 18, height: 1.2),
                           ),
@@ -130,7 +159,7 @@ class ProductDetailsWidget extends StatelessWidget {
                     padding: EdgeInsets.only(left: 16, right: 16, top: 4),
                     child: SizedBox(
                       height: 60,
-                      child: Text('Awesome'),
+                      child: Text('Size Guide'),
                     )),
                 const Divider(
                   color: Colors.grey,
@@ -163,6 +192,9 @@ class ProductDetailsWidget extends StatelessWidget {
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: GestureDetector(
+                    onTap: () {
+                      _addtoCartController();
+                    },
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
@@ -176,7 +208,7 @@ class ProductDetailsWidget extends StatelessWidget {
                           padding: const EdgeInsets.all(8),
                           child: Center(
                               child: Text(
-                            "Add to Bag",
+                            "Add to Cart",
                             style: appStyle(
                                 fw: FontWeight.w500,
                                 size: 20,
