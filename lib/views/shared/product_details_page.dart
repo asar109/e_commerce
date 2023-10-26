@@ -12,9 +12,12 @@ import 'package:provider/provider.dart';
 
 class ProductDetailsPage extends StatefulWidget {
   const ProductDetailsPage(
-      {super.key, required this.id, required this.category});
+      {super.key, required this.id, required this.category, required this.name, required this.price, required this.image});
   final String id;
   final String category;
+  final String name;
+  final String price;
+  final String image;
   @override
   State<ProductDetailsPage> createState() => _ProductDetailsPageState();
 }
@@ -128,16 +131,18 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                           right: 24,
                                           child: GestureDetector(
                                             onTap: () {
-                                              final exist = favoriteProvider
-                                                  .isFavorite(widget.id);
+                              favoriteProvider.isFavorite(widget.id)
+                                  ? favoriteProvider
+                                      .removeFavorite(widget.id)
+                                  : favoriteProvider
+                                      .addFavorite({
+                                      'id': widget.id,
+                                      'name': widget.name,
+                                      'category': widget.category,
+                                      'price': widget.price,
+                                      'image': widget.image
 
-                                              if (exist) {
-                                                favoriteProvider
-                                                    .removeFavorite(widget.id);
-                                              } else {
-                                                favoriteProvider
-                                                    .addFavorite(widget.id);
-                                              }
+                                      });
                                             },
                                             child: Icon(
                                               favoriteProvider

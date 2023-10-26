@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class GlobalVariables {
+  
 // Colors
   static const myBackgroundColor = Color(0xFFe2e2e2);
 }

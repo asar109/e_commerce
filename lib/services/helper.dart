@@ -31,10 +31,10 @@ Future<List<Sneakers>> getFemaleSneakerById (id)async {
 }
 Future<List<Sneakers>> getkidSneakerById (id)async {
   final res = await rootBundle.loadString('assets/data_kids.json');
-
   final data = sneakersFromJson(res) ;
   data.firstWhere((element) => element.id == id);
   return data;
 }
+
 
 }

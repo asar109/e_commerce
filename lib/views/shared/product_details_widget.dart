@@ -16,6 +16,7 @@ class ProductDetailsWidget extends StatefulWidget {
     required this.color,
     required this.image,
     required this.id,
+    
   });
   final String name;
   final int ratings;

@@ -20,10 +20,10 @@ void main() async {
     ChangeNotifierProvider(
       create: (context) => MainScreenProvider(),
     ),
-    ChangeNotifierProvider(create: (context) => ProductNotifier(),
+    ChangeNotifierProvider(
+      create: (context) => ProductNotifier(),
     ),
     ChangeNotifierProvider(create: (context) => FavoriteProvider()),
-    
   ], child: const MyApp()));
 }
 
@@ -41,12 +41,11 @@ class MyApp extends StatelessWidget {
       builder: (context, child) => Stack(
         children: [
           child!,
-         const  DropdownAlert(
+          const DropdownAlert(
             successBackground: Colors.white,
             contentStyle: TextStyle(color: Colors.black),
             titleStyle: TextStyle(color: Colors.black),
             position: AlertPosition.BOTTOM,
-            
           )
         ],
       ),

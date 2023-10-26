@@ -46,7 +46,7 @@ class HomeWidget extends StatelessWidget {
                           width: MediaQuery.of(context).size.width * 0.68,
                           child: GestureDetector(
                             onTap: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetailsPage(id: shoe.id, category: shoe.category),));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetailsPage(id: shoe.id, category: shoe.category , image: shoe.imageUrl[0] , name: shoe.name ,  price: shoe.price)));
                             },
                             child: ProductCard(
                               name: shoe.name,

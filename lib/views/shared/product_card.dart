@@ -30,110 +30,114 @@ class _ProductCardState extends State<ProductCard> {
     return Consumer<FavoriteProvider>(
       builder: (context, favoriteProvider, child) {
         return SizedBox(
-        height: MediaQuery.of(context).size.height * 0.2,
-        width: MediaQuery.of(context).size.width,
-        child: Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: const Color.fromARGB(255, 255, 255, 255)),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Stack(
-                  children: [
-                    Padding(
-                        padding: const EdgeInsets.only(right: 8, top: 8),
-                        child: CachedNetworkImage(
-                          imageUrl: widget.image,
-                        )),
-                    Positioned(
-                        top: 0,
-                        right: 0,
-                        child: GestureDetector(
-                          // TODO:
-                          onTap: ()  {
-                            final exist = favoriteProvider.isFavorite(widget.id);
-
-                            if(exist){
-                              favoriteProvider.removeFavorite(widget.id);
-                            }else{
-                              favoriteProvider.addFavorite(widget.id);
-                            }
-                            
-
-
-                          },
-                          child:  SizedBox(
-                            height: 50,
-                            width: 50,
-                            child: Icon(
-                              favoriteProvider.isFavorite(widget.id)? Icons.favorite : Icons.favorite_border_outlined,
-                              color: Colors.black,
-                              size: 32,
-                            ),
-                          ),
-                        ))
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: Text(
-                    widget.name,
-                    textAlign: TextAlign.left,
-                    maxLines: 2,
-                    softWrap: true,
-                    overflow: TextOverflow.ellipsis,
-                    style: appStyleWithHeight(
-                        fw: FontWeight.bold,
-                        size: 28,
-                        color: Colors.black.withOpacity(0.8),
-                        height: 1.2),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: Text(
-                    widget.category,
-                    maxLines: 1,
-                    style: appStyleWithHeight(
-                        fw: FontWeight.bold,
-                        size: 16,
-                        color: Colors.black38,
-                        height: 1.2),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(7),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          height: MediaQuery.of(context).size.height * 0.2,
+          width: MediaQuery.of(context).size.width,
+          child: Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: const Color.fromARGB(255, 255, 255, 255)),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Stack(
                     children: [
-                      Text('\$ ${widget.price}',
-                          style: appStyle(
-                              fw: FontWeight.bold,
-                              size: 20,
-                              color: Colors.black.withOpacity(0.8))),
-                      const Row(
-                        children: [
-                          Text('Colors'),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          ChoiceChip(
-                            label: Text(' '),
-                            selected: false,
-                            visualDensity: VisualDensity.compact,
-                            selectedColor: Color.fromARGB(255, 19, 19, 19),
-                          )
-                        ],
-                      )
+                      Padding(
+                          padding: const EdgeInsets.only(right: 8, top: 8),
+                          child: CachedNetworkImage(
+                            imageUrl: widget.image,
+                          )),
+                      Positioned(
+                          top: 0,
+                          right: 0,
+                          child: GestureDetector(
+                            // TODO:
+                            onTap: () {
+                              favoriteProvider.isFavorite(widget.id)
+                                  ? favoriteProvider
+                                      .removeFavorite(widget.id)
+                                  : favoriteProvider
+                                      .addFavorite({
+                                      'id': widget.id,
+                                      'name': widget.name,
+                                      'category': widget.category,
+                                      'price': widget.price,
+                                      'image': widget.image
+
+                                      });
+                            },
+                            child: SizedBox(
+                              height: 50,
+                              width: 50,
+                              child: Icon(
+                                favoriteProvider.isFavorite(widget.id)
+                                    ? Icons.favorite
+                                    : Icons.favorite_border_outlined,
+                                color: Colors.black,
+                                size: 32,
+                              ),
+                            ),
+                          ))
                     ],
                   ),
-                )
-              ],
-            )),
-      );
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: Text(
+                      widget.name,
+                      textAlign: TextAlign.left,
+                      maxLines: 2,
+                      softWrap: true,
+                      overflow: TextOverflow.ellipsis,
+                      style: appStyleWithHeight(
+                          fw: FontWeight.bold,
+                          size: 28,
+                          color: Colors.black.withOpacity(0.8),
+                          height: 1.2),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: Text(
+                      widget.category,
+                      maxLines: 1,
+                      style: appStyleWithHeight(
+                          fw: FontWeight.bold,
+                          size: 16,
+                          color: Colors.black38,
+                          height: 1.2),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(7),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('\$ ${widget.price}',
+                            style: appStyle(
+                                fw: FontWeight.bold,
+                                size: 20,
+                                color: Colors.black.withOpacity(0.8))),
+                        const Row(
+                          children: [
+                            Text('Colors'),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            ChoiceChip(
+                              label: Text(' '),
+                              selected: false,
+                              visualDensity: VisualDensity.compact,
+                              selectedColor: Color.fromARGB(255, 19, 19, 19),
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              )),
+        );
       },
- );
+    );
   }
 }
